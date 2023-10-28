@@ -1,0 +1,102 @@
+{% extends "layout.html" %} {% block title %} Register {% endblock %} {% block
+body %}
+<div class="share-assign">
+  <div class="form-container">
+    <div class="logo-container mb-3">
+      <h1>Memory</h1>
+    </div>
+    <div class="routes container-fluid mb-3">
+      <div class="row">
+        <a class="btn btn-primary col-6" href="/login" role="button">Login</a>
+        <a class="btn btn-primary col-6 active" href="/register" role="button"
+          >Register</a
+        >
+      </div>
+    </div>
+    <form class="assign" action="/register" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label"
+          ><i class="fas fa-user me-2"></i> User Name:</label
+        >
+        <input
+          type="text"
+          class="username form-control"
+          id="username"
+          name="username"
+          minlength="8"
+          maxlength="16"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label"
+          ><i class="fas fa-envelope me-2"></i> User Email:</label
+        >
+        <input
+          type="email"
+          class="email form-control"
+          id="email"
+          name="email"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label"
+          ><i class="fas fa-key me-2"></i> User Password:</label
+        >
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="password form-control"
+          minlength="8"
+          maxlength="16"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmation" class="form-label"
+          ><i class="fas fa-key me-2"></i> User Password (Again):</label
+        >
+        <input
+          type="password"
+          name="confirmation"
+          id="confirmation"
+          class="confirmation form-control"
+          minlength="8"
+          maxlength="16"
+        />
+      </div>
+      <div class="form-button">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane me-2"></i> Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const formAssingTag = document.querySelector(".assign");
+  const usernameTag = document.querySelector(".username");
+  const emailTag = document.querySelector(".email");
+  const passwordTag = document.querySelector(".password");
+  const confirmationTag = document.querySelector(".confirmation");
+
+  formAssingTag.addEventListener("submit", (e) => {
+    if (usernameTag.value === "" || usernameTag.value === null) {
+      e.preventDefault();
+      alert("Name is required!");
+    } else if (emailTag.value === "" || emailTag.value === null) {
+      e.preventDefault();
+      alert("Email is required!");
+    } else if (passwordTag.value === "" || passwordTag.value === null) {
+      e.preventDefault();
+      alert("Password is required!");
+    } else if (confirmationTag.value === "" || confirmationTag.value === null) {
+      e.preventDefault();
+      alert("Password (Again) is required!");
+    }
+  });
+</script>
+{% endblock %}

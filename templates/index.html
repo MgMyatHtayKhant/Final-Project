@@ -1,0 +1,342 @@
+{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block body
+%}
+<div class="container-fluid all-contents my-2">
+  <div class="notes-container py-3" style="display: block">
+    <!-- Heading -->
+    <div class="note-heading">
+      <h4>Notes</h4>
+      <button
+        type="button"
+        class="btn btn-primary add-note"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdropNote"
+      >
+        Add
+      </button>
+    </div>
+    <hr />
+
+    <!-- Modal -->
+    <div
+      class="modal fade focus-input"
+      id="staticBackdropNote"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Note</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="note-form">
+              <div class="mb-3">
+                <label for="card-title-name" class="col-form-label"
+                  >Title:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="card-title-name"
+                  id="card-title-name"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Text:</label>
+                <textarea
+                  class="form-control"
+                  id="message-text"
+                  name="message-text"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary note-submit-button"
+              data-bs-dismiss="modal"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards-container mb-5">
+      {% for note in notes %}
+      <div class="card note-card" data-note-id="{{note.id}}">
+        <div class="card-header">
+          <h5 title="{{note.date}}">Note</h5>
+          <button type="button" class="btn btn-light">
+            <i class="fa-solid fa-x"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{note.title}}</h5>
+          <p class="card-text">{{note.text}}</p>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+  <div class="images-container py-3" style="display: none">
+    <!-- Heading -->
+    <div class="image-heading">
+      <h4>Images</h4>
+      <button
+        type="button"
+        class="btn btn-primary add-image"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdropImage"
+      >
+        Add
+      </button>
+    </div>
+    <hr />
+
+    <!-- Modal -->
+    <div
+      class="modal fade focus-input"
+      id="staticBackdropImage"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Image</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="image-form" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="image-title-name" class="col-form-label"
+                  >Title:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="image-title-name"
+                  id="image-title-name"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="mb-3">
+                <img id="preview-image" src="" alt="" />
+                <input
+                  type="file"
+                  id="input-image-file"
+                  accept="image/*"
+                  style="display: none"
+                  required
+                  name="image"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="btn-image-file" type="button" class="btn btn-primary">
+              Image
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary image-submit-button"
+              data-bs-dismiss="modal"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div class="cards-container row mb-5">
+      {% for image in images %}
+      <div
+        class="col-sm-4 col-md-3 col-lg-2 image-card"
+        data-image-id="{{image.id}}"
+      >
+        <img src="/static/{{image.user_id}}/image/{{image.id}}" />
+        <i class="fa-solid fa-x close-img"></i>
+        <div class="image-card-content">
+          <h5>{{image.date.split(" ")[0]}}</h5>
+          <p>{{image.title}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="audios-container py-3" style="display: none">
+    <!-- Heading -->
+    <div class="audio-heading">
+      <h4>Audio</h4>
+      <button
+        type="button"
+        class="btn btn-primary add-audio"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdropAudio"
+      >
+        Add
+      </button>
+    </div>
+    <hr />
+
+    <!-- Modal -->
+    <div
+      class="modal fade focus-input"
+      id="staticBackdropAudio"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Audio</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="audio-form" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="audio-title-name" class="col-form-label"
+                  >Title:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="audio-title-name"
+                  id="audio-title-name"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="mb-3 text-center">
+                <audio src="" controls id="preview-audio"></audio>
+                <input
+                  type="file"
+                  id="input-audio-file"
+                  accept="audio/mp3"
+                  name="audio"
+                  required
+                  style="display: none"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+
+            <button id="btn-audio-file" type="button" class="btn btn-primary">
+              Audio
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary audio-submit-button"
+              data-bs-dismiss="modal"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audios -->
+    <div class="cards-container row mb-5">
+      <div class="col-md-7">
+        <div class="audio-play">
+          <div class="audio-gif">
+            <img src="/static/food-noodles.gif" alt="" />
+          </div>
+          <audio class="my-audio" src="">
+            Your browser doesn't support the audio element.
+          </audio>
+          <div class="current-and-total-time">00:00 / 00:00</div>
+          <div
+            class="progress"
+            role="progressbar"
+            aria-label="Default striped example"
+          >
+            <div class="progress-bar progress-bar-striped"></div>
+          </div>
+          <div class="audio-player">
+            <i class="fas fa-step-backward controls previous-button"></i>
+            <i class="fas fa-play-circle controls play-button"></i>
+            <i class="far fa-pause-circle controls pause-button"></i>
+            <i class="fas fa-step-forward controls next-button"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5" id="audio-list">
+        <div class="card">
+          <div class="card-header text-center">List Of My Audios</div>
+          <ol class="list-group list-group-flush list-group-numbered">
+            {% for audio in audios %}
+            <li
+              class="list-group-item audio-card"
+              data-audio-id="{{audio.id}}"
+              data-audio-src="/static/{{audio.user_id}}/audio/{{audio.id}}"
+              title="{{audio.date}}"
+            >
+              {{audio.title}}
+              <i class="fa-solid fa-trash-can"></i>
+            </li>
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary top-btn">Top</button>
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+Flask-Session
+cs50
+Flask
+requests
+email_validator

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/4f64e7aa61.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <!-- My CSS and JS -->
+    <link rel="stylesheet" href="../static/style.css" />
+    <script src="../static/script.js" defer></script>
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+  </head>
+  <body>
+    {% if session["user_id"] %}
+    <header class="heading text-center">
+      <h1>Welcome to My Memory</h1>
+    </header>
+
+    <nav class="bg-light border navbar navbar-expand-md navbar-light my-2">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <i class="fa-solid fa-brain fa-lg"></i>
+          <span class="red">MEMORY</span>
+        </a>
+        <button
+          aria-controls="navbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbar"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav me-auto menu-container">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="#"
+                data-container="notes-container"
+                >Notes</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-container="images-container"
+                >Images</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-container="audios-container"
+                >Audios</a
+              >
+            </li>
+            <div class="slider"></div>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <input
+                class="form-control searching"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endif %} {% if get_flashed_messages() %}
+    <header>
+      <div class="alert alert-primary mb-0 text-center" role="alert">
+        {{ get_flashed_messages() | join(" ") }}
+      </div>
+    </header>
+    {% endif %} {% block body %} {% endblock %}
+  </body>
+</html>
